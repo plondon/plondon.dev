@@ -1,26 +1,28 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Workplaces from './Workplaces';
+import styled from 'styled-components';
+
+const AppContainer = styled.div`
+  padding: 3em;
+`;
+const Header = styled.header`
+  color: white;
+  font-size: 2.5em;
+  font-weight: 600;
+`;
 
 const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppContainer>
+      <Header>
+        <span role="img" aria-label="surfer" style={{ marginRight: '0.25em' }}>
+          🏄‍♂️
+        </span>{' '}
+        Philip London
+      </Header>
+      <Workplaces />
+    </AppContainer>
   );
-}
+};
 
 export default App;
