@@ -11,13 +11,13 @@ exports.handler = () => {
       'https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=plondon514'
   })
     .then(res => res.data)
-    .then(data => {
-      console.log(data);
-      return {
-        body: JSON.stringify(data),
-        statusCode: 200
-      };
-    })
+    .then(data => ({
+      body: JSON.stringify(data),
+      headers: {
+        'Access-Control-Allow-Origin': '*'
+      },
+      statusCode: 200
+    }))
     .catch(error => {
       return { body: String(error), statusCode: 422 };
     });
