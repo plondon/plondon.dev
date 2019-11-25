@@ -9,5 +9,11 @@ exports.handler = () => {
     method: 'GET',
     url:
       'https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=plondon514'
-  }).then(res => res.data);
+  })
+    .then(res => res.data)
+    .then(data => ({
+      body: data,
+      statusCode: 200
+    }))
+    .catch(error => ({ body: String(error), statusCode: 422 }));
 };
