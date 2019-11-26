@@ -10,7 +10,7 @@ interface ProviderProps {
   theme: { black: string; grey2: string };
 }
 
-const AppContainer = styled(Row)`
+const AppContainer = styled(Col)`
   padding: 3rem;
 `;
 const SubHeader = styled(Header3)`
@@ -26,6 +26,9 @@ const GlobalStyle = createGlobalStyle`
   html, body {
     font-weight: 600;
     background-color: ${(props: ProviderProps) => props.theme['black']};
+    @media (max-width: 767px) {
+      font-size: 12px;
+    }
   }
 `;
 
@@ -33,30 +36,32 @@ const App: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <AppContainer>
-        <Col xs={12} md={6}>
-          <Header>
-            <span role="img" aria-label="surfer" style={emojiStyle}>
-              🏄‍♂️
-            </span>{' '}
-            Philip London
-          </Header>
-          <Workplaces />
-        </Col>
-        <Col xs={12} md={6}>
-          <SubHeader>
-            <span role="img" aria-label="bird" style={emojiStyle}>
-              🐦
-            </span>{' '}
-            Tweets
-          </SubHeader>
-          <Tweets />
-          <SubHeader>
-            <span role="img" aria-label="cat" style={emojiStyle}>
-              😻
-            </span>{' '}
-            GitHub
-          </SubHeader>
-        </Col>
+        <Header>
+          <span role="img" aria-label="surfer" style={emojiStyle}>
+            🏄‍♂️
+          </span>{' '}
+          Philip London
+        </Header>
+        <Row>
+          <Col xs={12} md={6}>
+            <Workplaces />
+          </Col>
+          <Col xs={12} md={6}>
+            <SubHeader>
+              <span role="img" aria-label="bird" style={emojiStyle}>
+                🐦
+              </span>{' '}
+              Tweets
+            </SubHeader>
+            <Tweets />
+            <SubHeader>
+              <span role="img" aria-label="cat" style={emojiStyle}>
+                😻
+              </span>{' '}
+              GitHub
+            </SubHeader>
+          </Col>
+        </Row>
       </AppContainer>
       <GlobalStyle />
     </ThemeProvider>

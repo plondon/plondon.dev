@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const Header = styled.header`
   color: ${props => props.theme.white};
   font-size: 2.5rem;
+  margin-bottom: 2.5rem;
 `;
 
 export const Header1 = styled.h1`

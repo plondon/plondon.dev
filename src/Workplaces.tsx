@@ -7,9 +7,7 @@ const MAX = 12;
 const fade = (props: { n: number; theme: { black: string } }) =>
   lighten((MAX - props.n + 1) / MAX, props.theme.black);
 
-const Container = styled.div`
-  margin-top: 2.5rem;
-`;
+const Container = styled.div``;
 const Workplace = styled.div`
   margin-bottom: 2rem;
   ul {
