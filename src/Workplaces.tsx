@@ -1,6 +1,11 @@
 import { Header1 } from './Components';
+import { lighten } from 'polished';
 import React from 'react';
 import styled from 'styled-components';
+
+const MAX = 12;
+const fade = (props: { n: number; theme: { black: string } }) =>
+  lighten((MAX - props.n + 1) / MAX, props.theme.black);
 
 const Container = styled.div`
   margin-top: 2.5rem;
@@ -14,43 +19,43 @@ const Workplace = styled.div`
     margin-bottom: 0.35rem;
   }
 `;
-const Date = styled.span`
-  font-size: 1rem;
-  color: ${props => props.theme['grey3']};
+const Company = styled(Header1)<{ n: number }>`
+  color: ${fade};
 `;
-const CurrentWorkplace = styled(Header1)`
-  color: ${props => props.theme['white']};
-  ${Date} {
-    color: ${props => props.theme['white']};
-  }
+const Date = styled.span<{ n: number }>`
+  font-size: 1.25rem;
+  color: ${fade};
 `;
-const CurrentPosition = styled.li`
-  color: ${props => props.theme['white']};
+const Position = styled.li<{ n: number }>`
+  color: ${fade};
 `;
 
 export const Workplaces: React.FC = () => {
   return (
     <Container>
       <Workplace>
-        <CurrentWorkplace>Blockchain</CurrentWorkplace>
+        <Company n={1}>Blockchain</Company>
+        <Date n={1}>2016-2019</Date>
         <ul>
-          <CurrentPosition>Senior Engineer</CurrentPosition>
-          <li>Lead Wallet & UX Developer</li>
-          <li>Lead UX Developer</li>
-          <li>UX Developer</li>
+          <Position n={1}>Senior Engineer</Position>
+          <Position n={3}>Lead Wallet & UX Developer</Position>
+          <Position n={4}>Lead UX Developer</Position>
+          <Position n={5}>UX Developer</Position>
         </ul>
       </Workplace>
       <Workplace>
-        <Header1>BORN Group</Header1>
+        <Company n={6}>BORN Group</Company>
+        <Date n={7}>2014-2016</Date>
         <ul>
-          <li>Senior Frontend Developer</li>
-          <li>Frontend Developer</li>
+          <Position n={8}>Senior Frontend Developer</Position>
+          <Position n={9}>Frontend Developer</Position>
         </ul>
       </Workplace>
       <Workplace>
-        <Header1>powerHouse</Header1>
+        <Company n={10}>powerHouse</Company>
+        <Date n={11}>2013</Date>
         <ul>
-          <li>Web Design and Media Intern</li>
+          <Position n={MAX}>Web Design and Media Intern</Position>
         </ul>
       </Workplace>
     </Container>
