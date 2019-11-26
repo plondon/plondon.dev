@@ -23,7 +23,7 @@ export const Tweets: React.FC<Props> = () => {
   return (
     <ul>
       {tweets.map((tweet: TweetType, id: number) => {
-        return <ol key={id}>{tweet.text}</ol>;
+        return <li key={id}>{tweet.text}</li>;
       })}
     </ul>
   );
