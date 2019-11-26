@@ -6,7 +6,7 @@ export const Header = styled.header`
 `;
 
 export const Header1 = styled.h1`
-  font-size: 4rem;
+  font-size: 5rem;
   margin-top: 0.25rem;
   margin-bottom: 0.25rem;
   color: ${props => props.theme.grey3};

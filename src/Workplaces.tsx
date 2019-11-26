@@ -23,10 +23,11 @@ const Company = styled(Header1)<{ n: number }>`
   color: ${fade};
 `;
 const Date = styled.span<{ n: number }>`
-  font-size: 1.25rem;
+  font-size: 1rem;
   color: ${fade};
 `;
 const Position = styled.li<{ n: number }>`
+  font-size: 1.5rem;
   color: ${fade};
 `;
 
