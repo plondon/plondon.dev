@@ -1,6 +1,6 @@
 import { lighten, transparentize } from 'polished';
 
-const black = lighten(0.65, '#000');
+const black = lighten(0.8, '#000');
 
 export default {
   black: black,
@@ -9,5 +9,6 @@ export default {
   grey3: transparentize(0.1, lighten(0.3, black)),
   grey4: transparentize(0.1, lighten(0.4, black)),
   grey5: transparentize(0.1, lighten(0.5, black)),
-  white: '#fff'
+  name: 'light',
+  white: '#000'
 };

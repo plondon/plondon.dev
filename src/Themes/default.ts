@@ -9,5 +9,6 @@ export default {
   grey3: transparentize(0.1, lighten(0.3, black)),
   grey4: transparentize(0.1, lighten(0.4, black)),
   grey5: transparentize(0.1, lighten(0.5, black)),
+  name: 'default',
   white: '#fff'
 };

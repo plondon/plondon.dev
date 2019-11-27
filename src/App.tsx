@@ -10,6 +10,7 @@ import styled, { ThemeProvider, createGlobalStyle } from 'styled-components';
 
 interface ProviderProps {
   theme: {
+    name: string;
     black: string;
     grey1: string;
     grey2: string;
@@ -20,13 +21,15 @@ interface ProviderProps {
   };
 }
 
-const themes = { default: DefaultTheme, light: LightTheme };
-
 const AppContainer = styled(Col)`
   padding: 3rem;
 `;
 
-const emojiStyle = { color: 'initial', marginRight: '0.25em' };
+const emojiStyle = {
+  color: 'initial',
+  cursor: 'pointer',
+  marginRight: '0.25em'
+};
 
 const GlobalStyle = createGlobalStyle`
   html, body {
