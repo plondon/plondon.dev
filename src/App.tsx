@@ -24,12 +24,46 @@ interface ProviderProps {
 const AppContainer = styled(Col)`
   padding: 3rem;
 `;
+const CustomHeader = styled(Header)`
+  display: flex;
+`;
 
 const emojiStyle = {
   color: 'initial',
-  cursor: 'pointer',
-  marginRight: '0.25em'
+  cursor: 'pointer'
 };
+const SurferInner = styled.div`
+  position: relative;
+  top: -5rem;
+  right: 0;
+`;
+const SurfEmoji = styled.div<{ left: string }>`
+  position: relative;
+  top: 3px;
+`;
+const Wave = styled(SurfEmoji)`
+  position: relative;
+  transform: scaleX(-1);
+  left: ${props => props.left};
+`;
+const Surfer = styled(SurfEmoji)`
+  position: relative;
+  left: ${props => props.left};
+`;
+const SurferContainer = styled.div`
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  margin-right: 0.75rem;
+  height: 2.5rem;
+  &.ACTIVE {
+    ${SurferInner} {
+      right: 5rem;
+      top: 0rem;
+      transition: all 0.75s;
+    }
+  }
+`;
 
 const GlobalStyle = createGlobalStyle`
   html, body {
@@ -38,6 +72,9 @@ const GlobalStyle = createGlobalStyle`
     @media (max-width: 767px) {
       font-size: 12px;
     }
+    * {
+      transition: color 0.5s;
+    }
   }
 `;
 
@@ -45,28 +82,58 @@ const App: React.FC = () => {
   const [theme, setTheme] = useState(
     localStorage.getItem('theme') || 'default'
   );
+  const [transition, setTransition] = useState('');
 
   const handleThemeChange = () => {
     const nextTheme = theme === 'default' ? 'light' : 'default';
     localStorage.setItem('theme', nextTheme);
-    setTheme(nextTheme);
+    setTransition('ACTIVE');
+    setTimeout(() => {
+      setTransition('');
+      setTheme(nextTheme);
+    }, 750);
   };
   const getTheme = () => (theme === 'light' ? LightTheme : DefaultTheme);
 
   return (
     <ThemeProvider theme={getTheme}>
       <AppContainer>
-        <Header>
-          <span
-            role="img"
-            aria-label="surfer"
-            style={emojiStyle}
-            onClick={handleThemeChange}
-          >
-            🏄‍♂️
-          </span>{' '}
+        <CustomHeader>
+          <SurferContainer onClick={handleThemeChange} className={transition}>
+            {/* eslint-disable */}
+            <SurferInner>
+              <Surfer
+                role="img"
+                aria-label="surfer"
+                style={emojiStyle}
+                className={transition}
+                left="5rem"
+              >
+                🏄‍♂️
+              </Surfer>
+              <Wave
+                role="img"
+                aria-label="wave"
+                style={emojiStyle}
+                className={transition}
+                left="2.5rem"
+              >
+                🌊
+              </Wave>
+              <Surfer
+                role="img"
+                aria-label="surfer"
+                style={emojiStyle}
+                className={transition}
+                left="0rem"
+              >
+                🏄‍♂️
+              </Surfer>
+            </SurferInner>
+            {/* eslint-enable */}
+          </SurferContainer>
           Philip London
-        </Header>
+        </CustomHeader>
         <Row>
           <Col xs={12} md={6}>
             <Workplaces />
