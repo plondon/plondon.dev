@@ -8,33 +8,37 @@ require('dotenv').config();
 
 interface Props {}
 
-const TWEETS = 5;
+export const TWEETS_N = 5;
 
 const Container = styled.div`
   position: relative;
-  min-height: 23rem;
+`;
+const SkeletonParent = styled.div`
+  position: relative;
+  min-height: 20rem;
 `;
 const SkeletonContainer = styled.div`
   &.ACTIVE {
     position: absolute;
-    top: 2.1rem;
     left: 0;
     width: 100%;
   }
 `;
 
-const Skeleton = styled.li<{ n: number }>`
-  height: 3rem;
+const Skeleton = styled.div<{ n: number }>`
+  height: 2.5rem;
   border-radius: 0.5rem;
   margin: 1rem 1rem 0 0;
   box-sizing: border-box;
   background-color: ${props =>
-    transparentize((TWEETS * props.n) / (TWEETS * TWEETS), props.theme.grey1)};
+    transparentize(
+      (TWEETS_N * props.n) / (TWEETS_N * TWEETS_N),
+      props.theme.grey1
+    )};
   position: relative;
-  transition: top 0.5s ${props => `0.${TWEETS - props.n}s`},
-    opacity 0.5s ${props => `0.${TWEETS - props.n}s`};
+  transition: top 0.5s ${props => `0.${TWEETS_N - props.n}s`},
+    opacity 0.5s ${props => `0.${TWEETS_N - props.n}s`};
   top: 0;
-  opacity: 1;
   &.ACTIVE {
     top: 1rem;
     opacity: 0;
@@ -65,16 +69,16 @@ export const Tweets: React.FC<Props> = () => {
         ></i>
         Twitter
       </Header3>
-      <ul style={{ overflow: 'hidden' }}>
+      <SkeletonParent style={{ overflow: 'hidden' }}>
         <SkeletonContainer className={transition}>
-          {Array.from(Array(TWEETS).keys()).map((x, id: number) => {
+          {Array.from(Array(TWEETS_N).keys()).map((x, id: number) => {
             return <Skeleton key={id} n={id} className={transition} />;
           })}
         </SkeletonContainer>
         {tweets.map((tweet, id: number) => {
           return <Tweet key={id} n={id} data={tweet} />;
         })}
-      </ul>
+      </SkeletonParent>
     </Container>
   );
 };
