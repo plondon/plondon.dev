@@ -1,7 +1,8 @@
 import { Col, Row } from 'react-styled-flexboxgrid';
-import { Header, Header3 } from './Components';
+import { Header } from './Components';
+import GitHub from './GitHub';
 import React from 'react';
-import Tweets from './Tweets';
+import Twitter from './Twitter';
 import Workplaces from './Workplaces';
 import styled, { ThemeProvider, createGlobalStyle } from 'styled-components';
 import theme from './Themes/default';
@@ -12,9 +13,6 @@ interface ProviderProps {
 
 const AppContainer = styled(Col)`
   padding: 3rem;
-`;
-const SubHeader = styled(Header3)`
-  color: ${props => props.theme.header};
 `;
 
 const emojiStyle = { color: 'initial', marginRight: '0.25em' };
@@ -47,19 +45,8 @@ const App: React.FC = () => {
             <Workplaces />
           </Col>
           <Col xs={12} md={6}>
-            <SubHeader>
-              <span role="img" aria-label="bird" style={emojiStyle}>
-                🐦
-              </span>{' '}
-              Tweets
-            </SubHeader>
-            <Tweets />
-            <SubHeader>
-              <span role="img" aria-label="cat" style={emojiStyle}>
-                😻
-              </span>{' '}
-              GitHub
-            </SubHeader>
+            <Twitter />
+            <GitHub />
           </Col>
         </Row>
       </AppContainer>

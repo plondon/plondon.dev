@@ -7,8 +7,7 @@ exports.handler = () => {
       Authorization: 'Bearer ' + process.env.REACT_APP_TWITTER_AUTH_TOKEN
     },
     method: 'GET',
-    url:
-      'https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=plondon514'
+    url: `https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=plondon514&count=5`
   })
     .then(res => res.data)
     .then(data => ({

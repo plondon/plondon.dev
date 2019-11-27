@@ -1,11 +1,9 @@
 import { Header1 } from './Components';
-import { lighten } from 'polished';
+import { fadeElements } from './utils';
 import React from 'react';
 import styled from 'styled-components';
 
 const MAX = 12;
-const fade = (props: { n: number; theme: { black: string } }) =>
-  lighten((MAX - props.n + 1) / MAX, props.theme.black);
 
 const Container = styled.div``;
 const Workplace = styled.div`
@@ -18,15 +16,15 @@ const Workplace = styled.div`
   }
 `;
 const Company = styled(Header1)<{ n: number }>`
-  color: ${fade};
+  color: ${fadeElements(MAX)};
 `;
 const Date = styled.span<{ n: number }>`
   font-size: 1rem;
-  color: ${fade};
+  color: ${fadeElements(MAX)};
 `;
 const Position = styled.li<{ n: number }>`
   font-size: 1.5rem;
-  color: ${fade};
+  color: ${fadeElements(MAX)};
 `;
 
 export const Workplaces: React.FC = () => {
@@ -34,7 +32,7 @@ export const Workplaces: React.FC = () => {
     <Container>
       <Workplace>
         <Company n={1}>Blockchain</Company>
-        <Date n={1}>2016-2019</Date>
+        <Date n={1}>2016-Today</Date>
         <ul>
           <Position n={1}>Senior Engineer</Position>
           <Position n={3}>Lead Wallet & UX Developer</Position>

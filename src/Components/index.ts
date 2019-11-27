@@ -6,22 +6,24 @@ export const Header = styled.header`
   margin-bottom: 2.5rem;
 `;
 
-export const Header1 = styled.h1`
-  font-size: 5rem;
+export const BaseHeader = styled.header`
   margin-top: 0.25rem;
   margin-bottom: 0.25rem;
-  color: ${props => props.theme.grey3};
 `;
 
-export const Header2 = styled.h2`
-  font-size: 2rem;
-  margin-top: 0.25rem;
-  margin-bottom: 0.25rem;
-  color: ${props => props.theme.grey3};
+export const Header1 = styled(BaseHeader).attrs({
+  as: 'h1'
+})`
+  font-size: 5rem;
 `;
-export const Header3 = styled.h3`
+export const Header2 = styled(BaseHeader).attrs({
+  as: 'h2'
+})`
+  font-size: 2rem;
+`;
+export const Header3 = styled(BaseHeader).attrs({
+  as: 'h3'
+})`
   font-size: 1.75rem;
-  margin-top: 0.25rem;
-  margin-bottom: 0.25rem;
-  color: ${props => props.theme.grey3};
+  color: ${props => props.theme.white};
 `;
