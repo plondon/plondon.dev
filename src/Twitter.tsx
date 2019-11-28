@@ -1,21 +1,31 @@
 import { Header3 } from './Components';
 import { transparentize } from 'polished';
+import ActivityStatus from './ActivityStatus';
 import React, { useEffect, useState } from 'react';
-import Tweet from './Tweet';
-import axios from 'axios';
+import Tweet, { TweetType } from './Tweet';
+import axios, { AxiosResponse } from 'axios';
 import styled from 'styled-components';
 require('dotenv').config();
 
 interface Props {}
+
+interface TweetResponse extends AxiosResponse {
+  data: Array<TweetType>;
+}
 
 export const TWEETS_N = 5;
 
 const Container = styled.div`
   position: relative;
 `;
+const CustomHeader = styled(Header3)`
+  display: flex;
+  height: 1.75rem;
+`;
 const SkeletonParent = styled.div`
   position: relative;
   min-height: 20rem;
+  max-width: 30rem;
 `;
 const SkeletonContainer = styled.div`
   &.ACTIVE {
@@ -45,14 +55,25 @@ const Skeleton = styled.div<{ n: number }>`
   }
 `;
 
+const Slider = styled.div`
+  margin-left: 0.5rem;
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+`;
+const ItemContainer = styled.div`
+  transition: top 0.5s;
+`;
+const Item = styled.div``;
+
 export const Tweets: React.FC<Props> = () => {
-  const [tweets, setTweets] = useState([]);
+  const [tweets, setTweets] = useState<Array<TweetType>>([]);
   const [transition, setTransition] = useState('NONE');
 
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_ROOT_URL}/.netlify/functions/get-tweets`)
-      .then(res => {
+      .then((res: TweetResponse) => {
         setTransition('ACTIVE');
         setTweets(res.data);
         return;
@@ -60,15 +81,26 @@ export const Tweets: React.FC<Props> = () => {
       .catch(console.log);
   }, []);
 
+  console.log(tweets[0]);
+
   return (
     <Container>
-      <Header3>
+      <CustomHeader>
         <i
           className="fab fa-twitter"
           style={{ color: '#1da1f2', marginRight: '1rem' }}
         ></i>
         Twitter
-      </Header3>
+        {tweets[0] && (
+          <Slider>
+            <ItemContainer>
+              <ActivityStatus date={tweets[0].created_at} />
+              <Item>Following: {tweets[0].user.friends_count}</Item>
+              <Item>Followers: {tweets[0].user.followers_count}</Item>
+            </ItemContainer>
+          </Slider>
+        )}
+      </CustomHeader>
       <SkeletonParent style={{ overflow: 'hidden' }}>
         <SkeletonContainer className={transition}>
           {Array.from(Array(TWEETS_N).keys()).map((x, id: number) => {

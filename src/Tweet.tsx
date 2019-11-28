@@ -2,9 +2,15 @@ import { fadeElements } from './utils';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-interface TweetType {
+interface UserType {
+  friends_count: number;
+  followers_count: number;
+}
+export interface TweetType {
   text: string;
   retweeted_status: TweetType;
+  created_at: string;
+  user: UserType;
 }
 
 interface Props {
@@ -14,6 +20,7 @@ interface Props {
 
 const Container = styled.div<{ n: number }>`
   position: relative;
+  max-width: 30rem;
   display: flex;
   margin-top: 1rem;
   opacity: 0;
@@ -29,6 +36,8 @@ const Icon = styled.i<{ color: string }>`
 const Body = styled.div<{ n: number }>`
   color: ${fadeElements(5)};
   font-weight: 500;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Ubuntu, 'Helvetica Neue', sans-serif;
 `;
 
 export const Tweet: React.FC<Props> = ({ data, n }) => {
