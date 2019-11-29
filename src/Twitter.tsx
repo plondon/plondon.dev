@@ -56,7 +56,10 @@ const Skeleton = styled.div<{ n: number }>`
   }
 `;
 const Item = styled.div`
-  margin-bottom: 0.5rem;
+  font-size: 0.8rem;
+  height: 1.75rem;
+  display: flex;
+  align-items: center;
 `;
 
 export const Tweets: React.FC<Props> = () => {
@@ -83,14 +86,30 @@ export const Tweets: React.FC<Props> = () => {
           className="fab fa-twitter"
           style={{ color: '#1da1f2', marginRight: '1rem' }}
         ></i>
-        Twitter
+        <span style={{ marginRight: '0.25rem' }}>Twitter</span>
         {tweets[0] && (
-          <Slider itemMarginBottom={0.5}>
+          <Slider>
             <Item>
               <ActivityStatus date={tweets[0].created_at} />
             </Item>
-            <Item>Following: {tweets[0].user.friends_count}</Item>
-            <Item>Followers: {tweets[0].user.followers_count}</Item>
+            <Item>
+              <span role="img" aria-label="heart">
+                💚
+              </span>
+              Likes: {tweets[0].user.favourites_count}
+            </Item>
+            <Item>
+              <span role="img" aria-label="friends">
+                🚶‍♂️
+              </span>
+              Following: {tweets[0].user.friends_count}
+            </Item>
+            <Item>
+              <span role="img" aria-label="followers">
+                🕺
+              </span>
+              Followers: {tweets[0].user.followers_count}
+            </Item>
           </Slider>
         )}
       </CustomHeader>

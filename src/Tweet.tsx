@@ -5,6 +5,7 @@ import styled from 'styled-components';
 interface UserType {
   friends_count: number;
   followers_count: number;
+  favourites_count: number;
 }
 export interface TweetType {
   text: string;

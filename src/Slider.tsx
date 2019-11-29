@@ -3,10 +3,9 @@ import styled from 'styled-components';
 
 interface Props {
   children: Array<ReactElement<any>>;
-  itemMarginBottom: number;
 }
 
-const SLIDER_TIMING = 5;
+const SLIDER_TIMING = 3.5;
 const TRANSITION_TIMING = 0.5;
 
 const Container = styled.div`
@@ -19,19 +18,13 @@ const Container = styled.div`
 const ItemContainer = styled.div<{
   height: number;
   index: number;
-  itemMarginBottom: number;
 }>`
-  top: calc(
-    (
-        ${props => props.itemMarginBottom * props.index}rem +
-          ${props => props.height * props.index}px
-      ) * -1
-  );
+  top: calc((${props => props.height * props.index}px) * -1);
   position: relative;
   transition: ${props => (props.index !== 0 ? 'top 0.5s' : 'top 0s')};
 `;
 
-export const Slider: React.FC<Props> = ({ children, itemMarginBottom }) => {
+export const Slider: React.FC<Props> = ({ children }) => {
   let [index, setIndex] = useState(0);
   const [height, setHeight] = useState(0);
   const ref = useRef<HTMLInputElement>(null);
@@ -60,11 +53,7 @@ export const Slider: React.FC<Props> = ({ children, itemMarginBottom }) => {
 
   return (
     <Container ref={ref}>
-      <ItemContainer
-        height={height}
-        index={index}
-        itemMarginBottom={itemMarginBottom}
-      >
+      <ItemContainer height={height} index={index}>
         {Slides}
       </ItemContainer>
     </Container>
