@@ -2,6 +2,7 @@ import { Header3 } from './Components';
 import { transparentize } from 'polished';
 import ActivityStatus from './ActivityStatus';
 import React, { useEffect, useState } from 'react';
+import Slider from './Slider';
 import Tweet, { TweetType } from './Tweet';
 import axios, { AxiosResponse } from 'axios';
 import styled from 'styled-components';
@@ -54,17 +55,9 @@ const Skeleton = styled.div<{ n: number }>`
     opacity: 0;
   }
 `;
-
-const Slider = styled.div`
-  margin-left: 0.5rem;
-  overflow: hidden;
-  height: 100%;
-  width: 100%;
+const Item = styled.div`
+  margin-bottom: 0.5rem;
 `;
-const ItemContainer = styled.div`
-  transition: top 0.5s;
-`;
-const Item = styled.div``;
 
 export const Tweets: React.FC<Props> = () => {
   const [tweets, setTweets] = useState<Array<TweetType>>([]);
@@ -92,12 +85,12 @@ export const Tweets: React.FC<Props> = () => {
         ></i>
         Twitter
         {tweets[0] && (
-          <Slider>
-            <ItemContainer>
+          <Slider itemMarginBottom={0.5}>
+            <Item>
               <ActivityStatus date={tweets[0].created_at} />
-              <Item>Following: {tweets[0].user.friends_count}</Item>
-              <Item>Followers: {tweets[0].user.followers_count}</Item>
-            </ItemContainer>
+            </Item>
+            <Item>Following: {tweets[0].user.friends_count}</Item>
+            <Item>Followers: {tweets[0].user.followers_count}</Item>
           </Slider>
         )}
       </CustomHeader>
