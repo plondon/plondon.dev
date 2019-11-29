@@ -10,6 +10,7 @@ const Dot = styled.div<{ color: string }>`
   width: 0.5rem;
   height: 0.5rem;
   border-radius: 0.25rem;
+  color: ${props => props.theme.color};
   background-color: ${props => props.color};
 `;
 const Status = styled.div`
@@ -19,37 +20,35 @@ const Status = styled.div`
   font-weight: 400;
 `;
 
-const ONE_DAY_IN_MILLISECONDS = 8.64e7;
+const ONE_HR_IN_MILLISECONDS = 3.6e6;
 
 export const ActivityStatus: React.FC<Props> = ({ date }) => {
   const today = new Date().getTime();
   const lastActivityDate = new Date(date).getTime();
   const timeSinceLastActivity = today - lastActivityDate;
-  const daysSinceLastActivity = timeSinceLastActivity / ONE_DAY_IN_MILLISECONDS;
+  const hrsSinceLastActivity = Math.ceil(
+    timeSinceLastActivity / ONE_HR_IN_MILLISECONDS
+  );
 
-  let activity: 'GREEN' | 'YELLOW' | 'RED';
+  console.log(hrsSinceLastActivity);
+
+  let activity: 'green' | 'yellow' | 'red';
   switch (true) {
-    case daysSinceLastActivity < 1:
-      activity = 'GREEN';
+    case hrsSinceLastActivity < 24:
+      activity = 'green';
       break;
-    case daysSinceLastActivity < 5:
-      activity = 'YELLOW';
+    case hrsSinceLastActivity < 120:
+      activity = 'yellow';
       break;
     default:
-      activity = 'RED';
+      activity = 'red';
       break;
   }
 
-  const colors = {
-    GREEN: '#00875A',
-    RED: '#D93B30',
-    YELLOW: '#FFD6AD'
-  };
-
   return (
     <Status>
-      <Dot color={colors[activity]} /> Last Active{' '}
-      {new Date(date).toLocaleDateString()}
+      <Dot color={activity} /> Last seen {hrsSinceLastActivity}
+      {hrsSinceLastActivity === 1 ? 'hr' : 'hrs'} ago
     </Status>
   );
 };

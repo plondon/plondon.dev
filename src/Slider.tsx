@@ -14,11 +14,7 @@ const Container = styled.div`
   height: 100%;
   width: 100%;
 `;
-
-const ItemContainer = styled.div<{
-  height: number;
-  index: number;
-}>`
+const ItemContainer = styled.div<{ height: number; index: number }>`
   top: calc((${props => props.height * props.index}px) * -1);
   position: relative;
   transition: ${props => (props.index !== 0 ? 'top 0.5s' : 'top 0s')};

@@ -44,7 +44,7 @@ const Skeleton = styled.div<{ n: number }>`
   background-color: ${props =>
     transparentize(
       (TWEETS_N * props.n) / (TWEETS_N * TWEETS_N),
-      props.theme.grey1
+      props.theme.grey
     )};
   position: relative;
   transition: top 0.5s ${props => `0.${TWEETS_N - props.n}s`},
@@ -76,8 +76,6 @@ export const Tweets: React.FC<Props> = () => {
       })
       .catch(console.log);
   }, []);
-
-  console.log(tweets[0]);
 
   return (
     <Container>

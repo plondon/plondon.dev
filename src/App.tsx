@@ -13,11 +13,7 @@ interface ProviderProps {
   theme: {
     name: string;
     black: string;
-    grey1: string;
-    grey2: string;
-    grey3: string;
-    grey4: string;
-    grey5: string;
+    grey: string;
     white: string;
   };
 }
