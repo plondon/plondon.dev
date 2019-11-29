@@ -25,7 +25,6 @@ const CustomHeader = styled(Header3)`
 `;
 const SkeletonParent = styled.div`
   position: relative;
-  min-height: 20rem;
   max-width: 30rem;
 `;
 const SkeletonContainer = styled.div`
@@ -35,7 +34,6 @@ const SkeletonContainer = styled.div`
     width: 100%;
   }
 `;
-
 const Skeleton = styled.div<{ n: number }>`
   height: 2.5rem;
   border-radius: 0.5rem;
