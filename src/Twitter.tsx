@@ -1,5 +1,9 @@
-import { Header3 } from './Components';
-import { transparentize } from 'polished';
+import {
+  Header3,
+  Skeleton,
+  SkeletonContainer,
+  SkeletonParent
+} from './Components';
 import ActivityStatus from './ActivityStatus';
 import React, { useEffect, useState } from 'react';
 import Slider from './Slider';
@@ -22,36 +26,6 @@ const Container = styled.div`
 const CustomHeader = styled(Header3)`
   display: flex;
   height: 1.75rem;
-`;
-const SkeletonParent = styled.div`
-  position: relative;
-  max-width: 30rem;
-`;
-const SkeletonContainer = styled.div`
-  &.ACTIVE {
-    position: absolute;
-    left: 0;
-    width: 100%;
-  }
-`;
-const Skeleton = styled.div<{ n: number }>`
-  height: 2.5rem;
-  border-radius: 0.5rem;
-  margin: 1rem 1rem 0 0;
-  box-sizing: border-box;
-  background-color: ${props =>
-    transparentize(
-      (TWEETS_N * props.n) / (TWEETS_N * TWEETS_N),
-      props.theme.grey
-    )};
-  position: relative;
-  transition: top 0.5s ${props => `0.${TWEETS_N - props.n}s`},
-    opacity 0.5s ${props => `0.${TWEETS_N - props.n}s`};
-  top: 0;
-  &.ACTIVE {
-    top: 1rem;
-    opacity: 0;
-  }
 `;
 const Item = styled.div`
   font-size: 0.8rem;
@@ -112,7 +86,9 @@ export const Tweets: React.FC<Props> = () => {
       <SkeletonParent style={{ overflow: 'hidden' }}>
         <SkeletonContainer className={transition}>
           {Array.from(Array(TWEETS_N).keys()).map((x, id: number) => {
-            return <Skeleton key={id} n={id} className={transition} />;
+            return (
+              <Skeleton max={TWEETS_N} key={id} n={id} className={transition} />
+            );
           })}
         </SkeletonContainer>
         {tweets.map((tweet, id: number) => {
