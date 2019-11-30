@@ -23,7 +23,7 @@ interface GitHubResponse extends AxiosResponse {
 }
 
 const Container = styled.div`
-  margin-top: 1.5rem;
+  margin-top: 2.5rem;
 `;
 const ActivityContainer = styled.div<{ n: number }>`
   position: relative;
@@ -78,7 +78,7 @@ export const GitHub: React.FC<Props> = () => {
       <CustomHeader>
         <i
           className="fab fa-github"
-          style={{ color: '#4078c0', marginRight: '1rem' }}
+          style={{ color: '#f6f8fa', marginRight: '1rem' }}
         ></i>{' '}
         <div style={{ marginRight: '0.5rem' }}>GitHub</div>
         {gitHubActivity[0] && (

@@ -30,8 +30,6 @@ export const ActivityStatus: React.FC<Props> = ({ date }) => {
     timeSinceLastActivity / ONE_HR_IN_MILLISECONDS
   );
 
-  console.log(hrsSinceLastActivity);
-
   let activity: 'green' | 'yellow' | 'red';
   switch (true) {
     case hrsSinceLastActivity < 24:
