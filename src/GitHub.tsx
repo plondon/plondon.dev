@@ -1,4 +1,5 @@
 import {
+  Anchor,
   Header3,
   Skeleton,
   SkeletonContainer,
@@ -70,7 +71,9 @@ export const GitHub: React.FC<Props> = () => {
           className="fab fa-github"
           style={{ color: '#f6f8fa', marginRight: '1rem' }}
         ></i>{' '}
-        <div style={{ marginRight: '0.5rem' }}>GitHub</div>
+        <div style={{ marginRight: '0.5rem' }}>
+          <Anchor href="https://github.com/plondon">GitHub</Anchor>
+        </div>
         {gitHubActivity[0] && (
           <Item>
             <ActivityStatus date={gitHubActivity[0].created_at} />

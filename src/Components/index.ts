@@ -58,3 +58,10 @@ export const Skeleton = styled.div<{ n: number; max: number }>`
     opacity: 0;
   }
 `;
+export const Anchor = styled.a.attrs({
+  rel: 'noopener noreferrer',
+  target: '_blank'
+})`
+  color: inherit;
+  text-decoration: none;
+`;

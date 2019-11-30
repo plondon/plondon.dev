@@ -1,4 +1,5 @@
 import {
+  Anchor,
   Header3,
   Skeleton,
   SkeletonContainer,
@@ -56,7 +57,9 @@ export const Tweets: React.FC<Props> = () => {
           className="fab fa-twitter"
           style={{ color: '#1da1f2', marginRight: '1rem' }}
         ></i>
-        <span style={{ marginRight: '0.25rem' }}>Twitter</span>
+        <span style={{ marginRight: '0.25rem' }}>
+          <Anchor href="https://twitter.com/plondon514">Twitter</Anchor>
+        </span>
         {tweets[0] && (
           <Slider>
             <Item>

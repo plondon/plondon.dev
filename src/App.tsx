@@ -1,5 +1,5 @@
+import { Anchor, Header } from './Components';
 import { Col, Row } from 'react-styled-flexboxgrid';
-import { Header } from './Components';
 import DefaultTheme from './Themes/default';
 import GitHub from './GitHub';
 import LightTheme from './Themes/light';
@@ -51,7 +51,9 @@ const App: React.FC = () => {
       <AppContainer>
         <CustomHeader>
           <Surf setTheme={setTheme} theme={theme} />
-          Philip London
+          <Anchor href="https://www.linkedin.com/in/philiplondon/">
+            Philip London
+          </Anchor>
         </CustomHeader>
         <Row>
           <Col xs={12} md={6}>
