@@ -3,7 +3,7 @@ import axios from 'axios';
 exports.handler = () => {
   return axios({
     method: 'GET',
-    url: `https://api.github.com/users/plondon/events?per_page=5`
+    url: `https://api.github.com/users/plondon/events?per_page=50`
   })
     .then(res => res.data)
     .then(data => ({

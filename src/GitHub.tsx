@@ -4,38 +4,26 @@ import {
   SkeletonContainer,
   SkeletonParent
 } from './Components';
-import { fadeElements } from './utils';
 import ActivityStatus from './ActivityStatus';
+import GitHubActivity, { GitHubActivityType } from './GitHubActivity';
 import React, { useEffect, useState } from 'react';
 import axios, { AxiosResponse } from 'axios';
 import styled from 'styled-components';
 
-interface Props {}
+const ACTIVITY_TYPE_WHITELIST = [
+  'PushEvent'
+  // 'PullEvent',
+  // 'IssuesEvent',
+  // 'StarEvent'
+];
 
-interface GitHubActivity {
-  created_at: string;
-  payload: {
-    commits: Array<{ message: string }>;
-  };
-}
+interface Props {}
 interface GitHubResponse extends AxiosResponse {
-  data: Array<GitHubActivity>;
+  data: Array<GitHubActivityType>;
 }
 
 const Container = styled.div`
   margin-top: 2.5rem;
-`;
-const ActivityContainer = styled.div<{ n: number }>`
-  position: relative;
-  max-width: 30rem;
-  display: flex;
-  margin-top: 1rem;
-  opacity: 0;
-  transition: opacity 0.5s 0.5s;
-  color: ${fadeElements(5)};
-  &.ACTIVE {
-    opacity: 1;
-  }
 `;
 const CustomHeader = styled(Header3)`
   display: flex;
@@ -51,11 +39,10 @@ const Item = styled.div`
 const GITHUB_N = 5;
 
 export const GitHub: React.FC<Props> = () => {
-  const [isActive, setIsActive] = useState(false);
   const [transition, setTransition] = useState('NONE');
-  const [gitHubActivity, setGithubActivity] = useState<Array<GitHubActivity>>(
-    []
-  );
+  const [gitHubActivity, setGithubActivity] = useState<
+    Array<GitHubActivityType>
+  >([]);
 
   useEffect(() => {
     axios
@@ -64,10 +51,13 @@ export const GitHub: React.FC<Props> = () => {
       )
       .then((res: GitHubResponse) => {
         setTransition('ACTIVE');
-        setGithubActivity(res.data);
-        setTimeout(() => {
-          setIsActive(true);
-        }, 500);
+        const filteredActivity = res.data
+          .filter(activity => {
+            return ACTIVITY_TYPE_WHITELIST.indexOf(activity.type) > -1;
+          })
+          .slice(0, 5);
+        console.log(filteredActivity);
+        setGithubActivity(filteredActivity);
         return;
       })
       .catch(console.log);
@@ -96,15 +86,7 @@ export const GitHub: React.FC<Props> = () => {
           })}
         </SkeletonContainer>
         {gitHubActivity.map((activity, id: number) => {
-          return (
-            <ActivityContainer
-              n={id}
-              key={id}
-              className={isActive ? 'ACTIVE' : ''}
-            >
-              {activity.payload.commits[0].message}
-            </ActivityContainer>
-          );
+          return <GitHubActivity n={id} data={activity} />;
         })}
       </SkeletonParent>
     </Container>
