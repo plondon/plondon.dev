@@ -16,6 +16,9 @@ export const Header1 = styled(BaseHeader).attrs({
   as: 'h1'
 })`
   font-size: 5rem;
+  @media (max-width: 767px) {
+    font-size: 3.5rem;
+  }
 `;
 export const Header2 = styled(BaseHeader).attrs({
   as: 'h2'

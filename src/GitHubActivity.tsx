@@ -67,9 +67,9 @@ export const GitHubActivity: React.FC<Props> = ({ data, n }) => {
         <CustomRow>
           <Col>
             <div>{data.payload.commits[0].message}</div>
-            <div style={{ fontSize: '14px' }}>{data.repo.name}</div>
+            <div style={{ fontSize: '0.75rem' }}>{data.repo.name}</div>
           </Col>
-          <Col style={{ fontSize: '12px' }}>
+          <Col style={{ fontSize: '0.75rem' }}>
             {new Date(data.created_at).toLocaleDateString()}
           </Col>
         </CustomRow>
