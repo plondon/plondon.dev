@@ -23,6 +23,7 @@ export const TWEETS_N = 5;
 
 const Container = styled.div`
   position: relative;
+  margin-top: 2.5rem;
 `;
 const CustomHeader = styled(Header3)`
   display: flex;

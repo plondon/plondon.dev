@@ -21,9 +21,7 @@ interface StravaResponse extends AxiosResponse {
   data: Array<StravaActivity>;
 }
 
-const Container = styled.div`
-  margin-top: 2.5rem;
-`;
+const Container = styled.div``;
 const CustomHeader = styled(Header3)`
   display: flex;
   height: 1.75rem;
@@ -52,6 +50,7 @@ const calcCenter = (activity: StravaActivity) => {
 };
 
 export const Strava: React.FC<Props> = () => {
+  const [transition, setTransition] = useState('NONE');
   const [stravaActivity, setStravaActivity] = useState<Array<StravaActivity>>(
     []
   );
@@ -69,10 +68,20 @@ export const Strava: React.FC<Props> = () => {
           attribution:
             '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(myMap);
+        L.mapboxGL({
+          accessToken: 'not-needed',
+          attribution: ' ',
+          style:
+            'https://api.maptiler.com/maps/204b2510-7a5f-4ef3-9f66-792fe03dda94/style.json?key=pk2XPrDUMOZHUU4S6sH9'
+        }).addTo(myMap);
         const polyline = PolylineEncoded.decode(activity.map.summary_polyline);
-        const path = L.polyline(polyline, { snakingSpeed: 200 });
-        myMap.addLayer(path);
-        path.snakeIn();
+        const path = L.polyline(polyline, { snakingSpeed: 250 });
+        myMap.whenReady(() => {
+          setTimeout(() => {
+            myMap.addLayer(path);
+            path.snakeIn();
+          }, 500);
+        });
       })
       .catch(console.log);
   }, []);

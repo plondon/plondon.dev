@@ -43,6 +43,10 @@ const GlobalStyle = createGlobalStyle`
     height: 18.75rem;
     width: 30rem;
   }
+
+  .leaflet-top.leaflet-left, .leaflet-bottom {
+    display: none;
+  }
 `;
 
 const App: React.FC = () => {
@@ -66,9 +70,9 @@ const App: React.FC = () => {
             <Workplaces />
           </Col>
           <Col xs={12} md={6}>
+            <Strava />
             <Twitter />
             <GitHub />
-            <Strava />
           </Col>
         </Row>
       </AppContainer>

@@ -9085,6 +9085,11 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
+mapbox-gl-leaflet@^0.0.11:
+  version "0.0.11"
+  resolved "https://registry.yarnpkg.com/mapbox-gl-leaflet/-/mapbox-gl-leaflet-0.0.11.tgz#6da1c6ec5b2aca27df6f5a2118cee7c351c4ed66"
+  integrity sha512-3jXZbQaZf/6D3lzv2PBHZsDvlT5wWt7bdm/zDDq6aKJ3n90PGQ+hyBY6Zav0z93Fy0PBHtOsx84Y5MVBA7si5Q==
+
 maxstache-stream@^1.0.0:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/maxstache-stream/-/maxstache-stream-1.0.4.tgz#9c7f5cab7e5fdd2d90da86143b4e9631ea328040"
