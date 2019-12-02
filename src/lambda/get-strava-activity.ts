@@ -22,7 +22,7 @@ exports.handler = () => {
           Authorization: 'Bearer ' + data.access_token
         },
         method: 'GET',
-        url: 'https://www.strava.com/api/v3/athlete/activities?per_page=5'
+        url: 'https://www.strava.com/api/v3/athlete/activities?per_page=1'
       })
         .then(res => res.data)
         .then(data => ({

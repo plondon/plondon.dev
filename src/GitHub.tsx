@@ -57,7 +57,6 @@ export const GitHub: React.FC<Props> = () => {
             return ACTIVITY_TYPE_WHITELIST.indexOf(activity.type) > -1;
           })
           .slice(0, 5);
-        console.log(filteredActivity);
         setGithubActivity(filteredActivity);
         return;
       })
@@ -89,7 +88,7 @@ export const GitHub: React.FC<Props> = () => {
           })}
         </SkeletonContainer>
         {gitHubActivity.map((activity, id: number) => {
-          return <GitHubActivity n={id} data={activity} />;
+          return <GitHubActivity key={id} n={id} data={activity} />;
         })}
       </SkeletonParent>
     </Container>

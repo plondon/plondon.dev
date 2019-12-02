@@ -37,6 +37,12 @@ const GlobalStyle = createGlobalStyle`
       transition: color 0.5s;
     }
   }
+
+  // Map style
+  #mapid {
+    height: 18.75rem;
+    width: 30rem;
+  }
 `;
 
 const App: React.FC = () => {

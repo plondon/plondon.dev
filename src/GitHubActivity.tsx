@@ -54,6 +54,21 @@ const GitHubIcon = ({ type }: GitHubActivityType) => {
   }
 };
 
+const GitHubMessage = ({ type, payload }: GitHubActivityType) => {
+  switch (type) {
+    case 'PushEvent':
+      return (
+        <div>
+          {payload.commits.map((commit, i) => (
+            <div key={i}>{commit.message}</div>
+          ))}
+        </div>
+      );
+    default:
+      return null;
+  }
+};
+
 export const GitHubActivity: React.FC<Props> = ({ data, n }) => {
   const [isActive, setIsActive] = useState(false);
   setTimeout(() => {
@@ -66,7 +81,7 @@ export const GitHubActivity: React.FC<Props> = ({ data, n }) => {
       <Body n={n + 1}>
         <CustomRow>
           <Col>
-            <div>{data.payload.commits[0].message}</div>
+            <GitHubMessage {...data} />
             <div style={{ fontSize: '0.75rem' }}>{data.repo.name}</div>
           </Col>
           <Col style={{ fontSize: '0.75rem' }}>

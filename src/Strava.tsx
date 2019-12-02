@@ -1,9 +1,6 @@
-import {
-  Header3,
-  Skeleton,
-  SkeletonContainer,
-  SkeletonParent
-} from './Components';
+import * as L from 'leaflet';
+import * as PolylineEncoded from 'polyline-encoded';
+import { Header3 } from './Components';
 import ActivityStatus from './ActivityStatus';
 import React, { useEffect, useState } from 'react';
 import axios, { AxiosResponse } from 'axios';
@@ -13,13 +10,16 @@ interface Props {}
 
 interface StravaActivity {
   start_date: string;
+  start_latlng: Array<number>;
+  end_latlng: Array<number>;
+  map: {
+    summary_polyline: string;
+  };
 }
 
 interface StravaResponse extends AxiosResponse {
   data: Array<StravaActivity>;
 }
-
-const STRAVA_N = 5;
 
 const Container = styled.div`
   margin-top: 2.5rem;
@@ -35,8 +35,23 @@ const Item = styled.div`
   align-items: center;
 `;
 
+const average = (x: number, y: number, z: number) => {
+  return (x + y + z) / 3;
+};
+
+const calcCenter = (activity: StravaActivity) => {
+  const LatLng = PolylineEncoded.decode(activity.map.summary_polyline);
+  const start = LatLng[0];
+  const middle = LatLng[Math.floor(LatLng.length / 2)];
+  const end = LatLng[LatLng.length - 1];
+
+  return [
+    average(start[0], middle[0], end[0]),
+    average(start[1], middle[1], end[1])
+  ];
+};
+
 export const Strava: React.FC<Props> = () => {
-  const [transition, setTransition] = useState('NONE');
   const [stravaActivity, setStravaActivity] = useState<Array<StravaActivity>>(
     []
   );
@@ -47,10 +62,17 @@ export const Strava: React.FC<Props> = () => {
         `${process.env.REACT_APP_ROOT_URL}/.netlify/functions/get-strava-activity`
       )
       .then((res: StravaResponse) => {
-        setTransition('ACTIVE');
         setStravaActivity(res.data);
-        console.log(res.data);
-        return;
+        const activity = res.data[0];
+        const myMap = L.map('mapid').setView(calcCenter(activity), 13.5);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution:
+            '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(myMap);
+        const polyline = PolylineEncoded.decode(activity.map.summary_polyline);
+        const path = L.polyline(polyline, { snakingSpeed: 200 });
+        myMap.addLayer(path);
+        path.snakeIn();
       })
       .catch(console.log);
   }, []);
@@ -69,15 +91,7 @@ export const Strava: React.FC<Props> = () => {
           </Item>
         )}
       </CustomHeader>
-      <SkeletonParent style={{ overflow: 'hidden' }}>
-        <SkeletonContainer className={transition}>
-          {Array.from(Array(STRAVA_N).keys()).map((x, id: number) => {
-            return (
-              <Skeleton max={STRAVA_N} key={id} n={id} className={transition} />
-            );
-          })}
-        </SkeletonContainer>
-      </SkeletonParent>
+      <div id="mapid" />
     </Container>
   );
 };
