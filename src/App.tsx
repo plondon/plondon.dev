@@ -42,6 +42,9 @@ const GlobalStyle = createGlobalStyle`
   #mapid {
     height: 18.75rem;
     width: 30rem;
+    @media (max-width: 767px) {
+      width: 100%;
+    }
   }
 
   .leaflet-top.leaflet-left, .leaflet-bottom {
