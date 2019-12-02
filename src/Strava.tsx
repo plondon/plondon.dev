@@ -22,6 +22,13 @@ interface StravaResponse extends AxiosResponse {
 }
 
 const Container = styled.div``;
+const MapContainer = styled.div`
+  opacity: 0;
+  transition: 0.5s 0.5s;
+  &.ACTIVE {
+    opacity: 1;
+  }
+`;
 const CustomHeader = styled(Header3)`
   display: flex;
   height: 1.75rem;
@@ -77,10 +84,11 @@ export const Strava: React.FC<Props> = () => {
         const polyline = PolylineEncoded.decode(activity.map.summary_polyline);
         const path = L.polyline(polyline, { snakingSpeed: 250 });
         myMap.whenReady(() => {
+          setTransition('ACTIVE');
           setTimeout(() => {
             myMap.addLayer(path);
             path.snakeIn();
-          }, 500);
+          }, 1000);
         });
       })
       .catch(console.log);
@@ -100,7 +108,9 @@ export const Strava: React.FC<Props> = () => {
           </Item>
         )}
       </CustomHeader>
-      <div id="mapid" />
+      <MapContainer className={transition}>
+        <div id="mapid" />
+      </MapContainer>
     </Container>
   );
 };
