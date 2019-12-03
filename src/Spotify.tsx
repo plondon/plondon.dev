@@ -45,6 +45,7 @@ const Item = styled.div`
 const SoundIcon = styled.i`
   color: ${props => props.theme.green};
   margin-right: 0.25rem;
+  min-width: 1rem;
 `;
 const Status = styled.div`
   display: flex;
@@ -74,6 +75,7 @@ const Artist = styled.div`
 `;
 
 export const Spotify: React.FC<Props> = () => {
+  const [index, setIndex] = useState<number>(0);
   const [spotifyActivity, setSpotifyActivity] = useState<SpotifyActivity>();
 
   useEffect(() => {
@@ -87,6 +89,14 @@ export const Spotify: React.FC<Props> = () => {
       });
   }, []);
 
+  useEffect(() => {
+    let interval = setInterval(() => {
+      const nextIndex = index + 1;
+      setIndex(nextIndex % 4);
+    }, 750);
+    return () => clearInterval(interval);
+  });
+
   return spotifyActivity ? (
     <Container>
       <CustomHeader>
@@ -97,7 +107,21 @@ export const Spotify: React.FC<Props> = () => {
         <div style={{ marginRight: '0.5rem' }}>Spotify</div>
         {spotifyActivity && (
           <Item>
-            <SoundIcon className="fas fa-volume-up"></SoundIcon>
+            {index === 0 && (
+              <SoundIcon className="fas fa-volume-up"></SoundIcon>
+            )}
+            {index === 1 && (
+              <SoundIcon className="fas fa-volume-down"></SoundIcon>
+            )}
+            {index === 2 && (
+              <SoundIcon className="fas fa-volume-off"></SoundIcon>
+            )}
+            {index === 3 && (
+              <SoundIcon className="fas fa-volume-down"></SoundIcon>
+            )}
+            {index === 4 && (
+              <SoundIcon className="fas fa-volume-up"></SoundIcon>
+            )}
             <Status>Listening Now</Status>
           </Item>
         )}
