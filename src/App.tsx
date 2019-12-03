@@ -4,6 +4,7 @@ import DefaultTheme from './Themes/default';
 import GitHub from './GitHub';
 import LightTheme from './Themes/light';
 import React, { useState } from 'react';
+import Spotify from './Spotify';
 import Strava from './Strava';
 import Surf from './Surf';
 import Twitter from './Twitter';
@@ -40,7 +41,9 @@ const GlobalStyle = createGlobalStyle`
 
   // Map style
   #mapid {
-    height: 18.75rem;
+    border-radius: 0.25rem;
+    margin-top: 1rem;
+    height: 18rem;
     width: 30rem;
     @media (max-width: 767px) {
       width: 100%;
@@ -73,6 +76,7 @@ const App: React.FC = () => {
             <Workplaces />
           </Col>
           <Col xs={12} md={6}>
+            <Spotify />
             <Strava />
             <Twitter />
             <GitHub />
