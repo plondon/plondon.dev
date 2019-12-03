@@ -1,6 +1,6 @@
 import * as L from 'leaflet';
 import * as PolylineEncoded from 'polyline-encoded';
-import { Header3 } from './Components';
+import { Header3, Text } from './Components';
 import ActivityStatus from './ActivityStatus';
 import React, { useEffect, useState } from 'react';
 import axios, { AxiosResponse } from 'axios';
@@ -9,6 +9,7 @@ import styled from 'styled-components';
 interface Props {}
 
 interface StravaActivity {
+  name: string;
   start_date: string;
   start_latlng: Array<number>;
   end_latlng: Array<number>;
@@ -23,11 +24,20 @@ interface StravaResponse extends AxiosResponse {
 
 const Container = styled.div``;
 const MapContainer = styled.div`
+  position: relative;
   opacity: 0;
   transition: 0.5s 0.5s;
   &.ACTIVE {
     opacity: 1;
   }
+`;
+const MapInfo = styled.div`
+  z-index: 400;
+  position: absolute;
+  padding: 1rem;
+  width: 100%;
+  bottom: 0;
+  left: 0;
 `;
 const CustomHeader = styled(Header3)`
   display: flex;
@@ -110,6 +120,8 @@ export const Strava: React.FC<Props> = () => {
       .catch(console.log);
   }, []);
 
+  console.log(stravaActivity[0]);
+
   return (
     <Container>
       <CustomHeader>
@@ -126,6 +138,11 @@ export const Strava: React.FC<Props> = () => {
       </CustomHeader>
       <MapContainer className={transition}>
         <div id="mapid" />
+        {stravaActivity[0] && (
+          <MapInfo>
+            <Text fontSize="1.25rem">{stravaActivity[0].name}</Text>
+          </MapInfo>
+        )}
       </MapContainer>
     </Container>
   );

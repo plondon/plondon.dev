@@ -31,6 +31,10 @@ export const Header3 = styled(BaseHeader).attrs({
   font-size: 1.75rem;
   color: ${props => props.theme.white};
 `;
+export const Text = styled.div<{ fontSize: string }>`
+  font-size: ${props => props.fontSize};
+  color: ${props => props.theme.white};
+`;
 export const SkeletonParent = styled.div`
   position: relative;
   max-width: 30rem;
