@@ -40,20 +40,33 @@ const Item = styled.div`
   align-items: center;
 `;
 
-const average = (x: number, y: number, z: number) => {
-  return (x + y + z) / 3;
+const average = (x: number, y: number) => {
+  return (x + y) / 2;
 };
 
 const calcCenter = (activity: StravaActivity) => {
   const LatLng = PolylineEncoded.decode(activity.map.summary_polyline);
-  const start = LatLng[0];
-  const middle = LatLng[Math.floor(LatLng.length / 2)];
-  const end = LatLng[LatLng.length - 1];
+  let minLat = Infinity;
+  let maxLat = -Infinity;
+  let minLng = Infinity;
+  let maxLng = -Infinity;
 
-  return [
-    average(start[0], middle[0], end[0]),
-    average(start[1], middle[1], end[1])
-  ];
+  LatLng.forEach((ll: Array<number>) => {
+    if (ll[0] < minLat) {
+      minLat = ll[0];
+    }
+    if (ll[0] > maxLat) {
+      maxLat = ll[0];
+    }
+    if (ll[1] < minLng) {
+      minLng = ll[1];
+    }
+    if (ll[1] > maxLng) {
+      maxLng = ll[1];
+    }
+  });
+
+  return [average(minLat, maxLat), average(minLng, maxLng)];
 };
 
 export const Strava: React.FC<Props> = () => {
@@ -70,7 +83,10 @@ export const Strava: React.FC<Props> = () => {
       .then((res: StravaResponse) => {
         setStravaActivity(res.data);
         const activity = res.data[0];
-        const myMap = L.map('mapid').setView(calcCenter(activity), 13.5);
+        const myMap = L.map('mapid', {
+          doubleClickZoom: false,
+          scrollWheelZoom: false
+        }).setView(calcCenter(activity), 13.5);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
           attribution:
             '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -88,7 +104,7 @@ export const Strava: React.FC<Props> = () => {
           setTimeout(() => {
             myMap.addLayer(path);
             path.snakeIn();
-          }, 1000);
+          }, 1500);
         });
       })
       .catch(console.log);
