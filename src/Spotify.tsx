@@ -45,7 +45,6 @@ const Item = styled.div`
 const SoundIcon = styled.i`
   color: ${props => props.theme.green};
   margin-right: 0.25rem;
-  font-weight: 300;
 `;
 const Status = styled.div`
   display: flex;
@@ -93,7 +92,7 @@ export const Spotify: React.FC<Props> = () => {
       <CustomHeader>
         <i
           className="fab fa-spotify"
-          style={{ color: '#1DB954', marginRight: '1rem' }}
+          style={{ color: '#1DB954', fontWeight: 400, marginRight: '1rem' }}
         ></i>{' '}
         <div style={{ marginRight: '0.5rem' }}>Spotify</div>
         {spotifyActivity && (
