@@ -45,6 +45,7 @@ const Item = styled.div`
 const SoundIcon = styled.i`
   color: ${props => props.theme.green};
   margin-right: 0.25rem;
+  font-weight: 300;
 `;
 const Status = styled.div`
   display: flex;
