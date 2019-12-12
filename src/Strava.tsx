@@ -95,8 +95,9 @@ export const Strava: React.FC<Props> = () => {
         const activity = res.data[0];
         const myMap = L.map('mapid', {
           doubleClickZoom: false,
+          dragging: false,
           scrollWheelZoom: false
-        }).setView(calcCenter(activity), 13.5);
+        }).setView(calcCenter(activity), 13.45);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
           attribution:
             '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -110,6 +111,7 @@ export const Strava: React.FC<Props> = () => {
         const polyline = PolylineEncoded.decode(activity.map.summary_polyline);
         const path = L.polyline(polyline, { snakingSpeed: 250 });
         myMap.whenReady(() => {
+          console.log('READY');
           setTransition('ACTIVE');
           setTimeout(() => {
             myMap.addLayer(path);
@@ -119,8 +121,6 @@ export const Strava: React.FC<Props> = () => {
       })
       .catch(console.log);
   }, []);
-
-  console.log(stravaActivity[0]);
 
   return (
     <Container>
