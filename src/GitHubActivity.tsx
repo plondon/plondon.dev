@@ -7,6 +7,9 @@ export interface GitHubActivityType {
   created_at: string;
   payload: {
     commits: Array<{ message: string }>;
+    pull_request?: {
+      title: string;
+    };
   };
   repo: {
     name: string;
@@ -49,21 +52,32 @@ const GitHubIcon = ({ type }: GitHubActivityType) => {
   switch (type) {
     case 'PushEvent':
       return <Icon className="fas fa-file-upload" color="#00875A"></Icon>;
+    case 'WatchEvent':
+      return <Icon className="fas fa-star" color="#f9d71c"></Icon>;
+    case 'PullRequestEvent':
+      return <Icon className="fas fa-code-branch" color="#6f42c1"></Icon>;
     default:
       return <Icon className="fas fa-code-branch" color="#6f42c1"></Icon>;
   }
 };
 
-const GitHubMessage = ({ type, payload }: GitHubActivityType) => {
+const GitHubMessage = ({ type, payload, repo }: GitHubActivityType) => {
   switch (type) {
     case 'PushEvent':
       return (
-        <div>
-          {payload.commits.map((commit, i) => (
-            <div key={i}>{commit.message}</div>
-          ))}
-        </div>
+        <>
+          <div>
+            {payload.commits.map((commit, i) => (
+              <div key={i}>{commit.message}</div>
+            ))}
+          </div>
+          <div style={{ fontSize: '0.75rem' }}>{repo.name}</div>
+        </>
       );
+    case 'WatchEvent':
+      return <div>{repo.name}</div>;
+    case 'PullRequestEvent':
+      return <div>{payload.pull_request && payload.pull_request.title}</div>;
     default:
       return null;
   }
@@ -82,7 +96,6 @@ export const GitHubActivity: React.FC<Props> = ({ data, n }) => {
         <CustomRow>
           <Col>
             <GitHubMessage {...data} />
-            <div style={{ fontSize: '0.75rem' }}>{data.repo.name}</div>
           </Col>
           <Col style={{ fontSize: '0.75rem' }}>
             {new Date(data.created_at).toLocaleDateString()}

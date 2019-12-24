@@ -12,10 +12,10 @@ import axios, { AxiosResponse } from 'axios';
 import styled from 'styled-components';
 
 const ACTIVITY_TYPE_WHITELIST = [
-  'PushEvent'
-  // 'PullEvent',
+  'PushEvent',
+  'PullRequestEvent',
   // 'IssuesEvent',
-  // 'StarEvent'
+  'WatchEvent'
 ];
 
 interface Props {}
