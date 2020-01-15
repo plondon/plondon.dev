@@ -1,6 +1,6 @@
 import axios from 'axios';
 require('dotenv').config();
-
+// https://www.strava.com/oauth/authorize?client_id=[CLIENT_ID]&response_type=code&redirect_uri=http://localhost/exchange_token&approval_prompt=force&scope=activity:read_all
 exports.handler = () => {
   return axios({
     data: {

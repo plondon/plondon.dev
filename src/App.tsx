@@ -77,7 +77,7 @@ const App: React.FC = () => {
           </Col>
           <Col xs={12} md={6}>
             <Spotify />
-            {/* <Strava /> */}
+            <Strava />
             <Twitter />
             <GitHub />
           </Col>
