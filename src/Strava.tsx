@@ -88,7 +88,9 @@ export const Strava: React.FC<Props> = () => {
   useEffect(() => {
     axios
       .get(
-        `${process.env.REACT_APP_ROOT_URL}/.netlify/functions/get-strava-activity`
+        `${
+          process.env.REACT_APP_ROOT_URL
+        }/.netlify/functions/get-strava-activity`
       )
       .then((res: StravaResponse) => {
         setStravaActivity(res.data);
@@ -128,7 +130,7 @@ export const Strava: React.FC<Props> = () => {
         <i
           className="fab fa-strava"
           style={{ color: '#fc4c02', marginRight: '1rem' }}
-        ></i>{' '}
+        />{' '}
         <div style={{ marginRight: '0.5rem' }}>Strava</div>
         {stravaActivity[0] && (
           <Item>

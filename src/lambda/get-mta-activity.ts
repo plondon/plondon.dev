@@ -6,7 +6,7 @@ exports.handler = () => {
     feed_id: 1 // optional, default = 1
   });
 
-  mta.status().then(function(result) {
+  mta.status().then(function(result: any) {
     return result;
   });
 };
