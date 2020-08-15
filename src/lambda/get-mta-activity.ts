@@ -1,4 +1,5 @@
 import * as Mta from 'mta-gtfs';
+require('dotenv').config();
 
 exports.handler = () => {
   var mta = new Mta({
@@ -6,7 +7,7 @@ exports.handler = () => {
     feed_id: 1 // optional, default = 1
   });
 
-  mta.status().then(function(result: any) {
+  mta.status().then(function(result) {
     return result;
   });
 };
