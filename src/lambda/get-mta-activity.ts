@@ -7,7 +7,7 @@ exports.handler = () => {
     feed_id: 1 // optional, default = 1
   });
 
-  mta.status().then(function(result) {
+  return mta.status().then(function(result) {
     return result;
   }).catch(e => e);
 };
