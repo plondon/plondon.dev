@@ -1,4 +1,4 @@
-import MTA from 'js-mta/build/index';
+import MTA from 'js-mta';
 require('dotenv').config();
 
 exports.handler = () => {
