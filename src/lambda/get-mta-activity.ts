@@ -7,7 +7,17 @@ exports.handler = () => {
     feed_id: 1 // optional, default = 1
   });
 
-  return mta.status().then(function(result) {
-    return result;
-  }).catch(e => e);
+  return mta
+    .status()
+    .then(data => ({
+      body: JSON.stringify(data),
+      headers: {
+        'Access-Control-Allow-Origin': '*'
+      },
+      statusCode: 200
+    }))
+    .catch(error => {
+      console.log(error);
+      return { body: String(error), statusCode: 422 };
+    });
 };
