@@ -5,7 +5,7 @@ import GitHub from './GitHub';
 import LightTheme from './Themes/light';
 import React, { useState } from 'react';
 import Spotify from './Spotify';
-import Strava from './Strava';
+// import Strava from './Strava';
 import Surf from './Surf';
 import Twitter from './Twitter';
 import Workplaces from './Workplaces';
