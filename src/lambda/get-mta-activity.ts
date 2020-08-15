@@ -9,5 +9,5 @@ exports.handler = () => {
 
   mta.status().then(function(result) {
     return result;
-  });
+  }).catch(e => e);
 };
