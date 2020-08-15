@@ -8,7 +8,7 @@ exports.handler = () => {
   });
 
   return mta
-    .schedule()
+    .stop()
     .then(data => ({
       body: JSON.stringify(data),
       headers: {
