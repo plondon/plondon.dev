@@ -97,7 +97,7 @@ export const Spotify: React.FC<Props> = () => {
     return () => clearInterval(interval);
   });
 
-  return spotifyActivity ? (
+  return (
     <Container>
       <CustomHeader>
         <i
@@ -126,7 +126,7 @@ export const Spotify: React.FC<Props> = () => {
           </Item>
         )}
       </CustomHeader>
-      <Body>
+      {spotifyActivity ? <Body>
         <img
           alt="album-art"
           height="30rem"
@@ -137,9 +137,9 @@ export const Spotify: React.FC<Props> = () => {
           <Song>{spotifyActivity.item.name}</Song>
           <Artist>{spotifyActivity.item.artists[0].name}</Artist>
         </Music>
-      </Body>
+      </Body> : <Body><Music>Not jamming right now.</Music></Body>}
     </Container>
-  ) : null;
+  );
 };
 
 export default Spotify;
